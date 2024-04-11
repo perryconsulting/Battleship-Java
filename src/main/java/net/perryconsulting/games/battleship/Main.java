@@ -2,12 +2,11 @@ package net.perryconsulting.games.battleship;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
+import static net.perryconsulting.games.battleship.GameUtilityClass.GRID_SIZE;
+import static net.perryconsulting.games.battleship.GameUtilityClass.OUTPUT;
 
 public class Main {
-
-    static final int GRID_SIZE = 10;
-    static final Scanner INPUT = new Scanner(System.in);
 
     public static void main(String[] args) {
         shallWePlayAGame();
@@ -32,8 +31,8 @@ public class Main {
     }
 
     private static void startGame(List<Player> players) {
-        System.out.println("The game starts!\n");
-        Player currentPlayer = players.get(0);
+        OUTPUT.println("The game starts!\n");
+        Player currentPlayer = players.getFirst();
         boolean isGameOver = false;
         while (!isGameOver) {
             isGameOver = playerTurn(currentPlayer);
@@ -42,14 +41,14 @@ public class Main {
 
     private static boolean playerTurn(Player currentPlayer) {
         boolean didPlayerWin = true;
-        System.out.println(currentPlayer.getOwnBoard());
-        System.out.println("Take a shot!\n");
+        OUTPUT.println(currentPlayer.getOwnBoard());
+        OUTPUT.println("Take a shot!\n");
         char shotResult = currentPlayer.fireAShot();
-        System.out.println(currentPlayer.getOwnBoard());
+        OUTPUT.println(currentPlayer.getOwnBoard());
         if (shotResult == GameBoard.SHIP_HIT) {
-            System.out.println("\nYou hit a ship!\n");
+            OUTPUT.println("\nYou hit a ship!\n");
         } else if (shotResult == GameBoard.SHIP_MISSED) {
-            System.out.println("\nYou missed!\n");
+            OUTPUT.println("\nYou missed!\n");
         }
         return didPlayerWin;
     }

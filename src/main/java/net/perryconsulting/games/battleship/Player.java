@@ -1,8 +1,10 @@
 package net.perryconsulting.games.battleship;
 
 import java.util.ArrayList;
+
 import static net.perryconsulting.games.battleship.GameBoardUtilityClass.*;
-import static net.perryconsulting.games.battleship.Main.INPUT;
+import static net.perryconsulting.games.battleship.GameUtilityClass.INPUT;
+import static net.perryconsulting.games.battleship.GameUtilityClass.OUTPUT;
 
 public class Player {
     private final GameBoard ownBoard;
@@ -18,13 +20,14 @@ public class Player {
     }
 
     public void readyPlayer() {
-        System.out.print(this.getOwnBoard() + "\n");
+        OUTPUT.println(this.getOwnBoard());
+        OUTPUT.println();
         this.placeOwnShips();
     }
 
     private void placeOwnShips() {
         for (ShipTypeEnum shipType : ShipTypeEnum.values()) {
-            System.out.println("Enter the coordinates of the " + shipType + ":");
+            OUTPUT.println("Enter the coordinates of the " + shipType + ":");
             boolean validPlacement;
             do {
                 validPlacement = this.tryPlaceShips(shipType);
@@ -40,7 +43,7 @@ public class Player {
 
         String shipStart = INPUT.next().toUpperCase();
         String shipEnd = INPUT.next().toUpperCase();
-        INPUT.nextLine();
+        INPUT.nextLine(); // Consume hidden newline character
 
         try {
             row1 = this.getOwnBoard().getRow(shipStart);
@@ -54,22 +57,22 @@ public class Player {
                         Ship newShip = new Ship(row1, row2, col1, col2, shipType);
                         placeShip(newShip, this.getOwnBoard());
                         this.addShip(newShip);
-                        System.out.println();
-                        System.out.println(this.getOwnBoard());
+                        OUTPUT.println();
+                        OUTPUT.println(this.getOwnBoard());
                         return true;
                     } else {
-                        System.out.println("Error! Ships cannot be next to one another. Try again: ");
+                        OUTPUT.println("Error! Ships cannot be next to one another. Try again: ");
                     }
                 } else {
-                    System.out.println("Error! Wrong length of the " + shipType + ". Try again: ");
+                    OUTPUT.println("Error! Wrong length of the " + shipType + ". Try again: ");
                 }
             } else {
-                System.out.println("Error! Ships cannot be diagonal. Try again: ");
+                OUTPUT.println("Error! Ships cannot be diagonal. Try again: ");
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error! Coordinates are outside of the game board.");
+            OUTPUT.println("Error! Coordinates are outside of the game board.");
         } catch (NumberFormatException e) {
-            System.out.println("Error! Invalid coordinates.");
+            OUTPUT.println("Error! Invalid coordinates.");
         }
         return false;
     }
@@ -100,7 +103,7 @@ public class Player {
                 }
                 isValidShot = true;
             } else {
-                System.out.println("\nError! You entered the wrong coordinates! Try again:\n");
+                    OUTPUT.println("\nError! You entered the wrong coordinates! Try again:\n");
             }
         }
         return this.getOwnBoard().getCoordinate(row, col);
