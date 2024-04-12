@@ -2,6 +2,8 @@ package net.perryconsulting.games.battleship;
 
 import java.util.ArrayList;
 
+import static net.perryconsulting.games.battleship.GameUtilityClass.OUTPUT;
+
 class GameBoardUtilityClass {
     private GameBoardUtilityClass() {
         throw new IllegalStateException("Utility Class");
@@ -52,7 +54,7 @@ class GameBoardUtilityClass {
             }
         }
         for (String shipCoordinate : shipCoordinates) {
-            System.out.println(shipCoordinate + " ");
+            OUTPUT.println(shipCoordinate + " ");
         }
     }
 }
